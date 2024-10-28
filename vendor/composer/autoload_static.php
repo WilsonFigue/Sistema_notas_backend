@@ -123,6 +123,7 @@ class ComposerStaticInit136f74780009a0a542f57f32f6189db3
             'League\\CommonMark\\' => 18,
             'Laravel\\Tinker\\' => 15,
             'Laravel\\SerializableClosure\\' => 28,
+            'Laravel\\Sanctum\\' => 16,
             'Laravel\\Sail\\' => 13,
             'Laravel\\Prompts\\' => 16,
             'Laravel\\Pail\\' => 13,
@@ -334,8 +335,8 @@ class ComposerStaticInit136f74780009a0a542f57f32f6189db3
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -400,6 +401,10 @@ class ComposerStaticInit136f74780009a0a542f57f32f6189db3
         'Laravel\\SerializableClosure\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/serializable-closure/src',
+        ),
+        'Laravel\\Sanctum\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravel/sanctum/src',
         ),
         'Laravel\\Sail\\' => 
         array (
@@ -509,7 +514,25 @@ class ComposerStaticInit136f74780009a0a542f57f32f6189db3
     );
 
     public static $classMap = array (
+        'App\\Http\\Controllers\\AlumnosController' => __DIR__ . '/../..' . '/app/Http/Controllers/AlumnosController.php',
+        'App\\Http\\Controllers\\AsignacionesController' => __DIR__ . '/../..' . '/app/Http/Controllers/AsignacionesController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\DocentesController' => __DIR__ . '/../..' . '/app/Http/Controllers/DocentesController.php',
+        'App\\Http\\Controllers\\EncargadoController' => __DIR__ . '/../..' . '/app/Http/Controllers/EncargadoController.php',
+        'App\\Http\\Controllers\\GradosController' => __DIR__ . '/../..' . '/app/Http/Controllers/GradosController.php',
+        'App\\Http\\Controllers\\MateriasController' => __DIR__ . '/../..' . '/app/Http/Controllers/MateriasController.php',
+        'App\\Http\\Controllers\\NotasController' => __DIR__ . '/../..' . '/app/Http/Controllers/NotasController.php',
+        'App\\Http\\Controllers\\SeccionesController' => __DIR__ . '/../..' . '/app/Http/Controllers/SeccionesController.php',
+        'App\\Http\\Controllers\\TrimestresController' => __DIR__ . '/../..' . '/app/Http/Controllers/TrimestresController.php',
+        'App\\Models\\Alumnos' => __DIR__ . '/../..' . '/app/Models/Alumnos.php',
+        'App\\Models\\Asignaciones' => __DIR__ . '/../..' . '/app/Models/Asignaciones.php',
+        'App\\Models\\Docentes' => __DIR__ . '/../..' . '/app/Models/Docentes.php',
+        'App\\Models\\Encargado' => __DIR__ . '/../..' . '/app/Models/Encargado.php',
+        'App\\Models\\Grados' => __DIR__ . '/../..' . '/app/Models/Grados.php',
+        'App\\Models\\Materias' => __DIR__ . '/../..' . '/app/Models/Materias.php',
+        'App\\Models\\Notas' => __DIR__ . '/../..' . '/app/Models/Notas.php',
+        'App\\Models\\Secciones' => __DIR__ . '/../..' . '/app/Models/Secciones.php',
+        'App\\Models\\Trimestres' => __DIR__ . '/../..' . '/app/Models/Trimestres.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
@@ -2910,6 +2933,26 @@ class ComposerStaticInit136f74780009a0a542f57f32f6189db3
         'Laravel\\Sail\\Console\\InstallCommand' => __DIR__ . '/..' . '/laravel/sail/src/Console/InstallCommand.php',
         'Laravel\\Sail\\Console\\PublishCommand' => __DIR__ . '/..' . '/laravel/sail/src/Console/PublishCommand.php',
         'Laravel\\Sail\\SailServiceProvider' => __DIR__ . '/..' . '/laravel/sail/src/SailServiceProvider.php',
+        'Laravel\\Sanctum\\Console\\Commands\\PruneExpired' => __DIR__ . '/..' . '/laravel/sanctum/src/Console/Commands/PruneExpired.php',
+        'Laravel\\Sanctum\\Contracts\\HasAbilities' => __DIR__ . '/..' . '/laravel/sanctum/src/Contracts/HasAbilities.php',
+        'Laravel\\Sanctum\\Contracts\\HasApiTokens' => __DIR__ . '/..' . '/laravel/sanctum/src/Contracts/HasApiTokens.php',
+        'Laravel\\Sanctum\\Events\\TokenAuthenticated' => __DIR__ . '/..' . '/laravel/sanctum/src/Events/TokenAuthenticated.php',
+        'Laravel\\Sanctum\\Exceptions\\MissingAbilityException' => __DIR__ . '/..' . '/laravel/sanctum/src/Exceptions/MissingAbilityException.php',
+        'Laravel\\Sanctum\\Exceptions\\MissingScopeException' => __DIR__ . '/..' . '/laravel/sanctum/src/Exceptions/MissingScopeException.php',
+        'Laravel\\Sanctum\\Guard' => __DIR__ . '/..' . '/laravel/sanctum/src/Guard.php',
+        'Laravel\\Sanctum\\HasApiTokens' => __DIR__ . '/..' . '/laravel/sanctum/src/HasApiTokens.php',
+        'Laravel\\Sanctum\\Http\\Controllers\\CsrfCookieController' => __DIR__ . '/..' . '/laravel/sanctum/src/Http/Controllers/CsrfCookieController.php',
+        'Laravel\\Sanctum\\Http\\Middleware\\AuthenticateSession' => __DIR__ . '/..' . '/laravel/sanctum/src/Http/Middleware/AuthenticateSession.php',
+        'Laravel\\Sanctum\\Http\\Middleware\\CheckAbilities' => __DIR__ . '/..' . '/laravel/sanctum/src/Http/Middleware/CheckAbilities.php',
+        'Laravel\\Sanctum\\Http\\Middleware\\CheckForAnyAbility' => __DIR__ . '/..' . '/laravel/sanctum/src/Http/Middleware/CheckForAnyAbility.php',
+        'Laravel\\Sanctum\\Http\\Middleware\\CheckForAnyScope' => __DIR__ . '/..' . '/laravel/sanctum/src/Http/Middleware/CheckForAnyScope.php',
+        'Laravel\\Sanctum\\Http\\Middleware\\CheckScopes' => __DIR__ . '/..' . '/laravel/sanctum/src/Http/Middleware/CheckScopes.php',
+        'Laravel\\Sanctum\\Http\\Middleware\\EnsureFrontendRequestsAreStateful' => __DIR__ . '/..' . '/laravel/sanctum/src/Http/Middleware/EnsureFrontendRequestsAreStateful.php',
+        'Laravel\\Sanctum\\NewAccessToken' => __DIR__ . '/..' . '/laravel/sanctum/src/NewAccessToken.php',
+        'Laravel\\Sanctum\\PersonalAccessToken' => __DIR__ . '/..' . '/laravel/sanctum/src/PersonalAccessToken.php',
+        'Laravel\\Sanctum\\Sanctum' => __DIR__ . '/..' . '/laravel/sanctum/src/Sanctum.php',
+        'Laravel\\Sanctum\\SanctumServiceProvider' => __DIR__ . '/..' . '/laravel/sanctum/src/SanctumServiceProvider.php',
+        'Laravel\\Sanctum\\TransientToken' => __DIR__ . '/..' . '/laravel/sanctum/src/TransientToken.php',
         'Laravel\\SerializableClosure\\Contracts\\Serializable' => __DIR__ . '/..' . '/laravel/serializable-closure/src/Contracts/Serializable.php',
         'Laravel\\SerializableClosure\\Contracts\\Signer' => __DIR__ . '/..' . '/laravel/serializable-closure/src/Contracts/Signer.php',
         'Laravel\\SerializableClosure\\Exceptions\\InvalidSignatureException' => __DIR__ . '/..' . '/laravel/serializable-closure/src/Exceptions/InvalidSignatureException.php',
