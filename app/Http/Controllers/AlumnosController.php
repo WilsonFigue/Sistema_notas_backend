@@ -54,9 +54,8 @@ class AlumnosController extends Controller
             $validatedData = $this->validateAlumnoData($request);
     
             $additionalData = [
-                'id_alumno' => 'A2222', 
+                'id_alumno' => 'A2332', 
                 'fecha_ingreso' => now(), 
-                'estado_alumno' => true, 
             ];
     
             $alumnoData = array_merge($validatedData, $additionalData);
@@ -76,6 +75,37 @@ class AlumnosController extends Controller
             ], 500);
         }
     }
+
+    public function update(Request $request, $id_alumno)
+    {
+        try 
+        {
+            $validatedData = $this->validateAlumnoData($request);
+
+            $alumno = Alumnos::find($id_alumno);
+
+            if (!$alumno) {
+                return response()->json([
+                    'message' => 'Alumno no encontrado',
+                ], 404);
+            }
+
+            $alumno->update($validatedData);
+
+            return response()->json([
+                'message' => 'Alumno actualizado exitosamente',
+                'alumno' => $alumno
+            ], 200);
+
+        } 
+        catch (\Throwable $th) 
+        {
+            return response()->json([
+                'message' => 'Alumno no actualizado',
+                'error' => $th->getMessage()
+            ], 500);
+        }
+    }
     
     private function validateAlumnoData(Request $request)
     {
@@ -87,6 +117,7 @@ class AlumnosController extends Controller
             'direccion_alumno' => 'required|string|max:120',
             'telefono_alumno' => 'required|string|max:9',
             'correo_alumno' => 'required|string|email|max:60',
+            'estado_alumno' => 'required|boolean',
             'observaciones_alumn' => 'nullable|string|max:225',
             'foto_alumnos' => 'nullable|string|max:60',
             'id_encargado' => 'required|exists:encargados,id_encargado',

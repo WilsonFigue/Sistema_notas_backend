@@ -9,5 +9,6 @@ Route::prefix('/alumnos')->group(function () {
 
     Route::get('/select', [AlumnosController::class, 'select']);
     Route::post('/store', [AlumnosController::class, 'store']);
+    Route::put('/update/{id}', [AlumnosController::class, 'update']);
 
 });
