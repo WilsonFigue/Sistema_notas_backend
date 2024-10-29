@@ -106,7 +106,35 @@ class AlumnosController extends Controller
             ], 500);
         }
     }
-    
+
+    public function delete($id_alumno)
+    {
+        try 
+        {
+            $alumno = Alumnos::find($id_alumno);
+
+            if (!$alumno) {
+                return response()->json([
+                    'message' => 'Alumno no encontrado',
+                ], 404);
+            }
+
+            $alumno->delete();
+
+            return response()->json([
+                'message' => 'Alumno eliminado exitosamente',
+            ], 200);
+
+        } 
+        catch (\Throwable $th) 
+        {
+            return response()->json([
+                'message' => 'Alumno no eliminado',
+                'error' => $th->getMessage()
+            ], 500);
+        }
+    }
+
     private function validateAlumnoData(Request $request)
     {
         return $request->validate([
