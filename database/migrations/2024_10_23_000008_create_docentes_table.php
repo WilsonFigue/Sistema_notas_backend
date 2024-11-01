@@ -15,7 +15,6 @@ class CreateDocentesTable extends Migration
             $table->string('correo_docente', 60);
             $table->string('especialidad', 25);
             $table->string('telefono_docente', 9);
-            $table->dateTime('fecha_ingreso_docen');
             $table->string('direccion_docente', 120);
             $table->string('observaciones_docen', 225)->nullable(); 
             $table->string('id_user'); 
