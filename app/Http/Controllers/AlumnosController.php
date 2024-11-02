@@ -26,7 +26,7 @@ class AlumnosController extends Controller
                 'alumnos.fecha_ingreso',
                 'secciones.nombre_seccion',
                 'grados.nombre_grado',
-                'encargados.name_encargado',
+                'encargados.nombre_encargado',
                 'encargados.apellido_encargado'
             )
             ->join('secciones', 'alumnos.id_seccion', '=', 'secciones.id_seccion')
