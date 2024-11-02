@@ -18,7 +18,7 @@ class CreateEncargadosTable extends Migration
             $table->string('nombre_encargado', 30);
             $table->string('apellido_encargado', 60); 
             $table->string('telefono_encargado', 9);
-            $table->string('email_encargado', 60); 
+            $table->string('correo_encargado', 60); 
             $table->string('direccion_encargado', 120); 
             $table->string('relacion_estudiante', 20); 
             $table->string('DUI_encargado', 10); 

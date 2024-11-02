@@ -1,37 +1,147 @@
 <?php
 
-namespace App\Models;
+namespace App\Http\Controllers;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Encargado;
+use Illuminate\Http\Request;
 
-class Encargado extends Model
+class EncargadoController extends Controller
 {
-    use HasFactory;
+    public function select()
+    {
+        try 
+        {
+            $encargado = Encargado::all();
 
-    // Definimos la tabla asociada a este modelo
-    protected $table = 'encargados';
+            if ($encargado->isEmpty()) 
+            {
+                return response()->json(['data' => 'No hay encargados'], 404);
+            }
+    
+            return response()->json($encargado);
+        } 
+        catch (\Throwable $th) 
+        {
+            return response()->json($th->getMessage(), 500);
+        }
+    }
 
-    // La clave primaria personalizada de la tabla
-    protected $primaryKey = 'id_encargado';
+    public function getEncargados()
+    {
+        try 
+        {
+            $encargados = Encargado::select(
+                'id_encargado',
+                'nombre_encargado',
+            )
 
-    // Especificamos los campos que pueden ser llenados de forma masiva
-    protected $fillable = [
-        'nombre_encargado',
-        'apellido_encargado',
-        'telefono_encargado',
-        'email_encargado',
-        'direccion_encargado',
-        'relacion_estudiante',
-        'DUI_encargado'
-    ];
+            ->get();
 
-    // Si no usas incrementing en la clave primaria
-    public $incrementing = true;
+            if ($encargados->isEmpty()) 
+            {
+                return response()->json(['data' => ''], 404);
+            }
+    
+            return response()->json($encargados);
+        } 
+        catch (\Throwable $th) 
+        {
+            return response()->json($th->getMessage(), 500);
+        }
+    }
 
-    // Si la clave primaria no es un integer
-    protected $keyType = 'int';
+    public function store(Request $request)
+    {
+        try 
+        {
+            $validatedData = $this->validateEncargadoData($request);
+    
+            $encargado = Encargado::create($validatedData);
+    
+            return response()->json([
+                'message' => 'Encargado creado exitosamente',
+                'encargado' => $encargado
+            ], 201);
+        } 
+        catch (\Throwable $th) 
+        {
+            return response()->json([
+                'message' => 'Encargado no creado',
+                'error' => $th->getMessage()
+            ], 500);
+        }
+    }
 
-    // Para habilitar las marcas de tiempo
-    public $timestamps = true;
+    public function update(Request $request, $id_encargado)
+    {
+        try 
+        {
+            $validatedData = $this->validateEncargadoData($request);
+
+            $encargado = Encargado::find($id_encargado);
+
+            if (!$encargado) {
+                return response()->json([
+                    'message' => 'Encargado no encontrado',
+                ], 404);
+            }
+
+            $encargado->update($validatedData);
+
+            return response()->json([
+                'message' => 'Encargado actualizado exitosamente',
+                'encargado' => $encargado
+            ], 200);
+
+        } 
+        catch (\Throwable $th) 
+        {
+            return response()->json([
+                'message' => 'Encargado no actualizado',
+                'error' => $th->getMessage()
+            ], 500);
+        }
+    }
+
+    public function delete($id_encargado)
+    {
+        try 
+        {
+            $encargado = Encargado::find($id_encargado);
+
+            if (!$encargado) {
+                return response()->json([
+                    'message' => 'Encargado no encontrado',
+                ], 404);
+            }
+
+            $encargado->delete();
+
+            return response()->json([
+                'message' => 'Encargado eliminado exitosamente',
+            ], 200);
+
+        } 
+        catch (\Throwable $th) 
+        {
+            return response()->json([
+                'message' => 'Encargado no eliminado',
+                'error' => $th->getMessage()
+            ], 500);
+        }
+    }
+
+    private function validateEncargadoData(Request $request)
+    {
+        return $request->validate([
+            'nombre_encargado' => 'required|string|max:30',
+            'apellido_encargado' => 'required|string|max:60',
+            'telefono_encargado' => 'required|string|max:9',
+            'correo_encargado' => 'required|string|email|max:60',
+            'direccion_encargado' => 'required|string|max:120',
+            'relacion_estudiante' => 'required|string|max:20',
+            'DUI_encargado' => 'required|string|max:10',
+        ]);
+    }
+
 }
