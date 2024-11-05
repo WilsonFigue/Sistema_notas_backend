@@ -12,7 +12,6 @@ class UsersController extends Controller
     {
         try {
             $validacion = Validator::make($request->all(), [
-                'id_user' => 'required|unique:users,id_user|max:15',
                 'name_user' => 'required',
                 'email_user' => 'required|email|unique:users,email_user',
                 'password' => 'required|min:8',
@@ -27,7 +26,6 @@ class UsersController extends Controller
             }
 
             $usuario = User::create([
-                'id_user' => $request->input('id_user'),
                 'name_user' => $request->input('name_user'),
                 'email_user' => $request->input('email_user'),
                 'password' => bcrypt($request->input('password')), 
