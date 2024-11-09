@@ -12,7 +12,6 @@ class Alumnos extends Model
     protected $table = 'alumnos';
     protected $primaryKey = 'id_alumno'; 
     public $incrementing = false; 
-    protected $keyType = 'string';
 
     protected $fillable = [
         'id_alumno', 

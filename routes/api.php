@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlumnosController;
+use App\Http\Controllers\DocentesController;
 use App\Http\Controllers\EncargadoController;
 use App\Http\Controllers\GradosController;
 use App\Http\Controllers\SeccionesController;
@@ -13,9 +14,8 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-
 Route::middleware('auth:sanctum')->group(function () {
-    
+
     //Rutas de alumnos
     Route::prefix('/alumnos')->group(function () {
 
@@ -51,9 +51,30 @@ Route::middleware('auth:sanctum')->group(function () {
 
     });
 
+     //Rutas de alumnos
+     Route::prefix('/docentes')->group(function () {
+
+        Route::get('/select', [DocentesController::class, 'select']);
+        Route::get('/get-docentes', [DocentesController::class, 'getDocentes']);
+        Route::post('/store', [DocentesController::class, 'store']);
+        Route::put('/update/{id}', [DocentesController::class, 'update']);
+        Route::delete('/delete/{id}', [DocentesController::class, 'delete']);
+        
+    });
     
+    //Rutas de usuarios al loguearse 
+    Route::prefix('/usuario')->group(function () {
+
+        Route::get('/get-users', [UsersController::class, 'getUsers']);
+    });
+
+
 });
 
+//Rutas de usuarios sin loguearse 
+Route::prefix('/usuario')->group(function () {
 
-Route::post('/usuario/register', [UsersController::class, 'register']);
-Route::post('/usuario/login', [UsersController::class, 'login']);
+    Route::post('register', [UsersController::class, 'register']);
+    Route::post('login', [UsersController::class, 'login']);
+
+});
