@@ -36,7 +36,7 @@ class AlumnosController extends Controller
 
             if ($alumnos->isEmpty()) 
             {
-                return response()->json(['data' => 'No hay clientes'], 404);
+                return response()->json(['data' => 'No hay alumnos'], 404);
             }
     
             return response()->json($alumnos);
@@ -49,32 +49,28 @@ class AlumnosController extends Controller
 
     public function store(Request $request)
     {
-        try 
-        {
-            $validatedData = $this->validateAlumnoData($request);
-    
+        try {
+            $validatedData = $this->validateAlumnoData($request); 
             $additionalData = [
-                'id_alumno' => 'A2332', 
                 'fecha_ingreso' => now(), 
             ];
-    
+
             $alumnoData = array_merge($validatedData, $additionalData);
-    
+
             $alumno = Alumnos::create($alumnoData);
-    
+
             return response()->json([
                 'message' => 'Alumno creado exitosamente',
                 'alumno' => $alumno
             ], 201);
-        } 
-        catch (\Throwable $th) 
-        {
+        } catch (\Throwable $th) {
             return response()->json([
                 'message' => 'Alumno no creado',
                 'error' => $th->getMessage()
             ], 500);
         }
     }
+
 
     public function update(Request $request, $id_alumno)
     {
@@ -153,7 +149,6 @@ class AlumnosController extends Controller
             'id_grado' => 'required|exists:grados,id_grado',
         ]);
     }
-    
     
 
 

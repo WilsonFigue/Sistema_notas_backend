@@ -9,7 +9,7 @@ class CreateDocentesTable extends Migration
     public function up()
     {
         Schema::create('docentes', function (Blueprint $table) {
-            $table->string('id_docente', 15)->primary(); 
+            $table->bigIncrements('id_docente'); 
             $table->string('nombre_docente', 30);
             $table->string('apellido_docente', 60);
             $table->string('correo_docente', 60);
