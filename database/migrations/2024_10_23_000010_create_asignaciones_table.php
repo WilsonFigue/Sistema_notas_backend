@@ -13,7 +13,7 @@ class CreateAsignacionesTable extends Migration
             $table->date('año_academico_asig'); 
             $table->unsignedBigInteger('id_materia'); 
             $table->unsignedBigInteger('id_grado'); 
-            $table->string('id_docente'); 
+            $table->unsignedBigInteger('id_docente'); 
             $table->foreign('id_materia')->references('id_materia')->on('materias')->onDelete('cascade');
             $table->foreign('id_grado')->references('id_grado')->on('grados')->onDelete('cascade');
             $table->foreign('id_docente')->references('id_docente')->on('docentes')->onDelete('cascade');

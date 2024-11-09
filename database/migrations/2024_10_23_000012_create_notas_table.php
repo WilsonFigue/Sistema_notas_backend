@@ -12,7 +12,7 @@ class CreateNotasTable extends Migration
             $table->bigIncrements('id_nota'); 
             $table->decimal('nota', 5, 2);
             $table->string('observaciones_not', 225);
-            $table->string('id_alumno'); 
+            $table->unsignedBigInteger('id_alumno'); 
             $table->unsignedBigInteger('id_asignacion'); 
             $table->unsignedBigInteger('id_trimestre'); 
             $table->foreign('id_alumno')->references('id_alumno')->on('alumnos')->onDelete('cascade');

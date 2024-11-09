@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AlumnosController;
 use App\Http\Controllers\EncargadoController;
+use App\Http\Controllers\GradosController;
+use App\Http\Controllers\SeccionesController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -10,7 +12,10 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+
+
 Route::middleware('auth:sanctum')->group(function () {
+    
     //Rutas de alumnos
     Route::prefix('/alumnos')->group(function () {
 
@@ -31,6 +36,24 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/delete/{id}', [EncargadoController::class, 'delete']);
 
     });
+
+    //Rutas de grados
+    Route::prefix('/grados')->group(function () {
+
+        Route::get('/get-grados', [GradosController::class, 'getGrados']);
+
+    });
+
+    //Rutas de secciones
+    Route::prefix('/secciones')->group(function () {
+
+        Route::get('/get-secciones', [SeccionesController::class, 'getSecciones']);
+
+    });
+
+    
 });
 
+
 Route::post('/usuario/register', [UsersController::class, 'register']);
+Route::post('/usuario/login', [UsersController::class, 'login']);
