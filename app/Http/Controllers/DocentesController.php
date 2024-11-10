@@ -11,21 +11,7 @@ class DocentesController extends Controller
     {
         try 
         {
-            $docentes = Docentes::select(
-                'docentes.id_docente',
-                'docentes.nombre_docente',
-                'docentes.apellido_docente',
-                'docentes.correo_docente',
-                'docentes.especialidad',
-                'docentes.telefono_docente',
-                'docentes.direccion_docente',
-                'docentes.observaciones_docen',
-                'users.name_user',
-                'users.email_user',
-
-            )
-            ->join('users', 'docentes.id_user', '=', 'users.id_user')
-            ->get();
+            $docentes = $this->getDocentesSelect();
 
             if ($docentes->isEmpty()) 
             {
@@ -161,6 +147,27 @@ class DocentesController extends Controller
         }
     }
 
+    public function find($id_docente)
+    {
+        try {
+            $docente = $this->getDocentesSelect($id_docente);
+
+            if ($docente->isEmpty()) {
+                return response()->json([
+                    'message' => 'Docente no encontrado',
+                ], 404);
+            }
+
+            return response()->json($docente);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'Error al buscar al Docente',
+                'error' => $th->getMessage()
+            ], 500);
+        }
+    }
+
     private function validateDocenteData(Request $request)
     {
         return $request->validate([
@@ -174,4 +181,27 @@ class DocentesController extends Controller
             'id_user' => 'required|exists:users,id_user',
         ]);
     }
+
+    public function getDocentesSelect($id_docente = null)
+    {
+        $query = Docentes::select(
+                'docentes.id_docente',
+                'docentes.nombre_docente',
+                'docentes.apellido_docente',
+                'docentes.correo_docente',
+                'docentes.especialidad',
+                'docentes.telefono_docente',
+                'docentes.direccion_docente',
+                'docentes.observaciones_docen',
+                'users.name_user',
+                'users.email_user'
+            )
+            ->join('users', 'docentes.id_user', '=', 'users.id_user');
+        
+        if ($id_docente) {
+            $query->where('docentes.id_docente', $id_docente);
+        }
+        return $query->get();
+    }
+
 }

@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/store', [AlumnosController::class, 'store']);
         Route::put('/update/{id}', [AlumnosController::class, 'update']);
         Route::delete('/delete/{id}', [AlumnosController::class, 'delete']);
+        Route::get('/find/{id}', [AlumnosController::class, 'find']);
         
     });
 
@@ -34,6 +35,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/store', [EncargadoController::class, 'store']);
         Route::put('/update/{id}', [EncargadoController::class, 'update']);
         Route::delete('/delete/{id}', [EncargadoController::class, 'delete']);
+        Route::get('/find/{id}', [EncargadoController::class, 'find']);
 
     });
 
@@ -59,6 +61,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/store', [DocentesController::class, 'store']);
         Route::put('/update/{id}', [DocentesController::class, 'update']);
         Route::delete('/delete/{id}', [DocentesController::class, 'delete']);
+        Route::get('/find/{id}', [DocentesController::class, 'find']);
         
     });
     
