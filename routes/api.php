@@ -6,6 +6,7 @@ use App\Http\Controllers\EncargadoController;
 use App\Http\Controllers\GradosController;
 use App\Http\Controllers\MateriasController;
 use App\Http\Controllers\SeccionesController;
+use App\Http\Controllers\TrimestresController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -72,6 +73,17 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/get-users', [UsersController::class, 'getUsers']);
     });
 
+    //Rutas de materias 
+    Route::prefix('/materias')->group(function () {
+
+        Route::get('/get-materias', [MateriasController::class, 'getMaterias']);
+    });
+
+     //Rutas de trimestres 
+     Route::prefix('/trimestres')->group(function () {
+
+        Route::get('/get-trimestres', [TrimestresController::class, 'getTrimestres']);
+    });
     //Rutas de usuarios al loguearse 
     Route::prefix('/materias')->group(function () {
 
