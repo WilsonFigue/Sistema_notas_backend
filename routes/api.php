@@ -4,6 +4,7 @@ use App\Http\Controllers\AlumnosController;
 use App\Http\Controllers\DocentesController;
 use App\Http\Controllers\EncargadoController;
 use App\Http\Controllers\GradosController;
+use App\Http\Controllers\MateriasController;
 use App\Http\Controllers\SeccionesController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
@@ -39,6 +40,18 @@ Route::middleware('auth:sanctum')->group(function () {
 
     });
 
+    //Rutas de docentes
+    Route::prefix('/docentes')->group(function () {
+
+        Route::get('/select', [DocentesController::class, 'select']);
+        Route::get('/get-docentes', [DocentesController::class, 'getDocentes']);
+        Route::post('/store', [DocentesController::class, 'store']);
+        Route::put('/update/{id}', [DocentesController::class, 'update']);
+        Route::delete('/delete/{id}', [DocentesController::class, 'delete']);
+        Route::get('/find/{id}', [DocentesController::class, 'find']);
+        
+    });
+
     //Rutas de grados
     Route::prefix('/grados')->group(function () {
 
@@ -53,24 +66,17 @@ Route::middleware('auth:sanctum')->group(function () {
 
     });
 
-     //Rutas de alumnos
-     Route::prefix('/docentes')->group(function () {
-
-        Route::get('/select', [DocentesController::class, 'select']);
-        Route::get('/get-docentes', [DocentesController::class, 'getDocentes']);
-        Route::post('/store', [DocentesController::class, 'store']);
-        Route::put('/update/{id}', [DocentesController::class, 'update']);
-        Route::delete('/delete/{id}', [DocentesController::class, 'delete']);
-        Route::get('/find/{id}', [DocentesController::class, 'find']);
-        
-    });
-    
-    //Rutas de usuarios al loguearse 
-    Route::prefix('/usuario')->group(function () {
+     //Rutas de usuarios al loguearse 
+     Route::prefix('/usuario')->group(function () {
 
         Route::get('/get-users', [UsersController::class, 'getUsers']);
     });
 
+    //Rutas de usuarios al loguearse 
+    Route::prefix('/materias')->group(function () {
+
+        Route::get('/get-materias', [MateriasController::class, 'getMaterias']);
+    });
 
 });
 
