@@ -146,7 +146,6 @@ class AlumnosController extends Controller
             'observaciones_alumn' => 'nullable|string|max:225',
             'foto_alumnos' => 'nullable|string|max:60',
             'id_encargado' => 'required|exists:encargados,id_encargado',
-            'id_seccion' => 'required|exists:secciones,id_seccion',
             'id_grado' => 'required|exists:grados,id_grado',
         ]);
     }
@@ -166,12 +165,10 @@ class AlumnosController extends Controller
                 'alumnos.correo_alumno',
                 'alumnos.telefono_alumno',
                 'alumnos.fecha_ingreso',
-                'secciones.nombre_seccion',
                 'grados.nombre_grado',
                 'encargados.nombre_encargado',
                 'encargados.apellido_encargado'
             )
-            ->join('secciones', 'alumnos.id_seccion', '=', 'secciones.id_seccion')
             ->join('grados', 'alumnos.id_grado', '=', 'grados.id_grado')
             ->join('encargados', 'alumnos.id_encargado', '=', 'encargados.id_encargado');
         

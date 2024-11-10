@@ -27,10 +27,8 @@ class CreateAlumnosTable extends Migration
             $table->string('observaciones_alumn', 225)->nullable(); 
             $table->string('foto_alumnos', 60)->nullable(); 
             $table->unsignedBigInteger('id_encargado'); 
-            $table->unsignedBigInteger('id_seccion');
             $table->unsignedBigInteger('id_grado'); 
             $table->foreign('id_encargado')->references('id_encargado')->on('encargados')->onDelete('cascade');
-            $table->foreign('id_seccion')->references('id_seccion')->on('secciones')->onDelete('cascade');
             $table->foreign('id_grado')->references('id_grado')->on('grados')->onDelete('cascade');
             $table->timestamps(); 
         });
