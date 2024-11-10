@@ -5,7 +5,6 @@ use App\Http\Controllers\DocentesController;
 use App\Http\Controllers\EncargadoController;
 use App\Http\Controllers\GradosController;
 use App\Http\Controllers\MateriasController;
-use App\Http\Controllers\SeccionesController;
 use App\Http\Controllers\TrimestresController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
@@ -57,13 +56,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('/grados')->group(function () {
 
         Route::get('/get-grados', [GradosController::class, 'getGrados']);
-
-    });
-
-    //Rutas de secciones
-    Route::prefix('/secciones')->group(function () {
-
-        Route::get('/get-secciones', [SeccionesController::class, 'getSecciones']);
 
     });
 

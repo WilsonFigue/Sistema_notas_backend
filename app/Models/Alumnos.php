@@ -27,7 +27,6 @@ class Alumnos extends Model
         'observaciones_alumn',
         'foto_alumnos',
         'id_encargado',
-        'id_seccion',
         'id_grado',
     ];
 }
