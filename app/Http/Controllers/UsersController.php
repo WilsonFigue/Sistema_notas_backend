@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
@@ -34,6 +35,36 @@ class UsersController extends Controller
             return response()->json($th->getMessage(), 500);
         }
     }
+
+    public function select()
+    {
+        try 
+        {
+            $users = DB::table('users')->select(
+                'id_user',
+                'name_user',
+                'rol',
+                'email_user',
+                'created_at',
+                'updated_at'
+            )->get();
+
+            if ($users->isEmpty()) 
+            {
+                return response()->json(['message' => 'No hay usuarios disponibles'], 404);
+            }
+
+            return response()->json($users, 200);
+        } 
+        catch (\Throwable $th) 
+        {
+            return response()->json([
+                'message' => 'Error al obtener los usuarios',
+                'error' => $th->getMessage()
+            ], 500);
+        }
+    }
+
 
 
 
