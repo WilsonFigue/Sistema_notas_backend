@@ -13,11 +13,11 @@ class CreateNotasTable extends Migration
             $table->decimal('nota', 5, 2);
             $table->string('observaciones_not', 225);
             $table->unsignedBigInteger('id_alumno'); 
-            $table->unsignedBigInteger('id_asignacion'); 
-            $table->unsignedBigInteger('id_trimestre'); 
+            $table->unsignedBigInteger('id_asignacion')->nullable();
+            $table->unsignedBigInteger('id_trimestre')->nullable();
             $table->foreign('id_alumno')->references('id_alumno')->on('alumnos')->onDelete('cascade');
-            $table->foreign('id_asignacion')->references('id_asignacion')->on('asignaciones')->onDelete('cascade');
-            $table->foreign('id_trimestre')->references('id_trimestre')->on('trimestres')->onDelete('cascade');
+            $table->foreign('id_asignacion')->references('id_asignacion')->on('asignaciones')->onDelete('set null');
+            $table->foreign('id_trimestre')->references('id_trimestre')->on('trimestres')->onDelete('set null');
             $table->timestamps(); 
         });
     }
