@@ -93,7 +93,7 @@ Route::middleware('auth:sanctum')->group(function () {
 //Rutas de usuarios sin loguearse 
 Route::prefix('/usuario')->group(function () {
 
-    Route::post('register', [UsersController::class, 'register']);
     Route::post('login', [UsersController::class, 'login']);
+    Route::post('register', [UsersController::class, 'register']);
 
 });

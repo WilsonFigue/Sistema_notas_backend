@@ -97,7 +97,7 @@ class UsersController extends Controller
 
             return response()->json([
                 'code' => 200,
-                'data' => $usuario,
+                'data' => 'Usuario creado exitosamente',
                 'token' => $usuario->createToken('api-key')->plainTextToken
             ], 200);
 
@@ -177,7 +177,7 @@ class UsersController extends Controller
 
             return response()->json([
                 'code' => 200,
-                'message' => 'Contraseña actualizada correctamente'
+                'data' => 'Contraseña actualizada correctamente'
             ], 200);
 
         } catch (\Throwable $th) {
@@ -203,7 +203,8 @@ class UsersController extends Controller
             $user->delete();
 
             return response()->json([
-                'message' => 'Usuario eliminado exitosamente',
+                'code' => 200,
+                'data' => 'Usuario eliminado exitosamente',
             ], 200);
 
         } 
