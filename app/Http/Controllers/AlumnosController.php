@@ -163,6 +163,7 @@ class AlumnosController extends Controller
                 'alumnos.id_alumno',
                 'alumnos.nombre_alumno',
                 'alumnos.apellido_alumno',
+                'alumnos.fecha_nacimiento',
                 'alumnos.genero_alumno',
                 'alumnos.foto_alumnos',
                 'alumnos.estado_alumno',
