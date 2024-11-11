@@ -11,12 +11,12 @@ class CreateAsistenciasTable extends Migration
         Schema::create('asistencias', function (Blueprint $table) {
             $table->bigIncrements('id_asistencia'); 
             $table->unsignedBigInteger('id_alumno'); 
-            $table->unsignedBigInteger('id_asignacion'); 
+            $table->unsignedBigInteger('id_asignacion')->nullable();
             $table->date('fecha_asistencia'); 
             $table->boolean('asistencia'); 
             $table->string('observaciones', 225)->nullable(); 
             $table->foreign('id_alumno')->references('id_alumno')->on('alumnos')->onDelete('cascade');
-            $table->foreign('id_asignacion')->references('id_asignacion')->on('asignaciones')->onDelete('cascade');
+            $table->foreign('id_asignacion')->references('id_asignacion')->on('asignaciones')->onDelete('set null');
             $table->timestamps();
         });
     }

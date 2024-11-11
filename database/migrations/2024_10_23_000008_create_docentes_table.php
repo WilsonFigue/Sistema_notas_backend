@@ -16,9 +16,9 @@ class CreateDocentesTable extends Migration
             $table->string('especialidad', 25);
             $table->string('telefono_docente', 9);
             $table->string('direccion_docente', 120);
-            $table->string('observaciones_docen', 225)->nullable(); ; 
-            $table->unsignedBigInteger('id_user'); 
-            $table->foreign('id_user')->references('id_user')->on('users')->onDelete('cascade');
+            $table->string('observaciones_docen', 225)->nullable();
+            $table->unsignedBigInteger('id_user')->nullable();
+            $table->foreign('id_user')->references('id_user')->on('users')->onDelete('set null');
             $table->timestamps(); 
         });
     }
