@@ -18,7 +18,10 @@ class EncargadoController extends Controller
                 return response()->json(['data' => 'No hay encargados'], 404);
             }
     
-            return response()->json($encargado);
+            return response()->json([
+                'code' => 200,
+                'data' =>$encargado
+            ], 200);
         } 
         catch (\Throwable $th) 
         {
@@ -42,7 +45,10 @@ class EncargadoController extends Controller
                 return response()->json(['data' => ''], 404);
             }
     
-            return response()->json($encargados);
+            return response()->json([
+                'code' => 200,
+                'data' =>$encargados
+            ], 200);
         } 
         catch (\Throwable $th) 
         {
@@ -143,7 +149,10 @@ class EncargadoController extends Controller
                 ], 404);
             }
 
-            return response()->json($encargado);
+            return response()->json([
+                'code' => 200,
+                'data' =>$encargado
+            ], 200);
 
         } 
         catch (\Throwable $th) 
