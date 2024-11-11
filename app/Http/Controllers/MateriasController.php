@@ -23,7 +23,10 @@ class MateriasController extends Controller
                 return response()->json(['data' => ''], 404);
             }
     
-            return response()->json($materias);
+            return response()->json([
+                'code' => 200,
+                'data' =>$materias
+            ], 200);
         } 
         catch (\Throwable $th) 
         {

@@ -24,8 +24,11 @@ class TrimestresController extends Controller
             {
                 return response()->json(['data' => ''], 404);
             }
-        
-            return response()->json($trimestres);
+            
+            return response()->json([
+                'code' => 200,
+                'data' =>$trimestres
+            ], 200);
         } 
         catch (\Throwable $th) 
         {

@@ -15,7 +15,7 @@ class UsersController extends Controller
     {
         try 
         {
-            $encargados = User::select(
+            $users = User::select(
                     'users.id_user',
                     'users.name_user'
                 )
@@ -23,12 +23,15 @@ class UsersController extends Controller
                 ->whereNull('docentes.id_user')  
                 ->get();
     
-            if ($encargados->isEmpty()) 
+            if ($users->isEmpty()) 
             {
                 return response()->json(['data' => 'No hay usuarios disponibles'], 404);
             }
         
-            return response()->json($encargados);
+            return response()->json([
+                'code' => 200,
+                'data' =>$users
+            ], 200);
         } 
         catch (\Throwable $th) 
         {
@@ -54,7 +57,10 @@ class UsersController extends Controller
                 return response()->json(['message' => 'No hay usuarios disponibles'], 404);
             }
 
-            return response()->json($users, 200);
+            return response()->json([
+                'code' => 200,
+                'data' =>$users
+            ], 200);
         } 
         catch (\Throwable $th) 
         {
@@ -64,10 +70,6 @@ class UsersController extends Controller
             ], 500);
         }
     }
-
-
-
-
 
     public function register(Request $request)
     {
@@ -146,6 +148,74 @@ class UsersController extends Controller
             return response()->json($th->getMessage(), 500);
         }
     }
+
+    public function updatePassword(Request $request, $id_user)
+    {
+        try {
+            $validacion = Validator::make($request->all(), [
+                'password' => 'required|min:8|confirmed' 
+            ]);
+
+            if ($validacion->fails()) {
+                return response()->json([
+                    'code' => 400,
+                    'data' => $validacion->messages()
+                ], 400);
+            }
+
+            $user = User::find($id_user);
+
+            if (!$user) {
+                return response()->json([
+                    'code' => 404,
+                    'message' => 'Usuario no encontrado'
+                ], 404);
+            }
+            
+            $user->password = bcrypt($request->input('password')); 
+            $user->save();
+
+            return response()->json([
+                'code' => 200,
+                'message' => 'Contraseña actualizada correctamente'
+            ], 200);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'code' => 500,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+
+    public function delete($id_user)
+    {
+        try 
+        {
+            $user = User::find($id_user);
+
+            if (!$user) {
+                return response()->json([
+                    'message' => 'Usuario no encontrado',
+                ], 404);
+            }
+
+            $user->delete();
+
+            return response()->json([
+                'message' => 'Usuario eliminado exitosamente',
+            ], 200);
+
+        } 
+        catch (\Throwable $th) 
+        {
+            return response()->json([
+                'message' => 'Usuario no eliminado',
+                'error' => $th->getMessage()
+            ], 500);
+        }
+    }
+
 
 
 }

@@ -23,7 +23,10 @@ class GradosController extends Controller
                 return response()->json(['data' => ''], 404);
             }
     
-            return response()->json($encargados);
+            return response()->json([
+                'code' => 200,
+                'data' =>$encargados
+            ], 200);
         } 
         catch (\Throwable $th) 
         {

@@ -19,7 +19,10 @@ class AlumnosController extends Controller
                 return response()->json(['data' => 'No hay alumnos'], 404);
             }
     
-            return response()->json($alumnos);
+            return response()->json([
+                'code' => 200,
+                'data' =>$alumnos
+            ], 200);
         } 
         catch (\Throwable $th) 
         {
@@ -122,7 +125,10 @@ class AlumnosController extends Controller
                 ], 404);
             }
 
-            return response()->json($alumno);
+            return response()->json([
+                'code' => 200,
+                'data' =>$alumno
+            ], 200);
 
         } catch (\Throwable $th) {
             return response()->json([

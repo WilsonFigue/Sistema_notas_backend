@@ -15,8 +15,9 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-
 Route::middleware('auth:sanctum')->group(function () {
+
+
 
     //Rutas de alumnos
     Route::prefix('/alumnos')->group(function () {
@@ -65,6 +66,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::get('/get-users', [UsersController::class, 'getUsers']);
         Route::get('/select', [UsersController::class, 'select']);
+        Route::delete('/delete/{id}', [UsersController::class, 'delete']);
+        Route::post('/update-password/{id}', [UsersController::class, 'updatePassword']);
     });
 
     //Rutas de materias 

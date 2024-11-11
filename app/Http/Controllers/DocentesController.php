@@ -18,7 +18,10 @@ class DocentesController extends Controller
                 return response()->json(['data' => 'No hay docentes'], 404);
             }
     
-            return response()->json($docentes);
+            return response()->json([
+                'code' => 200,
+                'data' =>$docentes
+            ], 200);
         } 
         catch (\Throwable $th) 
         {
@@ -30,19 +33,22 @@ class DocentesController extends Controller
     {
         try 
         {
-            $encargados = Docentes::select(
+            $docentes = Docentes::select(
                 'docentes.id_docente',
                 'users.name_user',
             )
             ->join('users', 'docentes.id_user', '=', 'users.id_user')
             ->get();
 
-            if ($encargados->isEmpty()) 
+            if ($docentes->isEmpty()) 
             {
                 return response()->json(['data' => ''], 404);
             }
     
-            return response()->json($encargados);
+            return response()->json([
+                'code' => 200,
+                'data' =>$docentes
+            ], 200);
         } 
         catch (\Throwable $th) 
         {
@@ -158,7 +164,10 @@ class DocentesController extends Controller
                 ], 404);
             }
 
-            return response()->json($docente);
+            return response()->json([
+                'code' => 200,
+                'data' =>$docente
+            ], 200);
 
         } catch (\Throwable $th) {
             return response()->json([
