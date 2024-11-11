@@ -65,7 +65,8 @@ class EncargadoController extends Controller
             $encargado = Encargado::create($validatedData);
     
             return response()->json([
-                'message' => 'Encargado creado exitosamente',
+                'code' => 201,
+                'data' => 'Encargado creado exitosamente',
                 'encargado' => $encargado
             ], 201);
         } 

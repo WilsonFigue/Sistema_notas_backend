@@ -43,9 +43,10 @@ class AlumnosController extends Controller
             $alumno = Alumnos::create($alumnoData);
 
             return response()->json([
-                'message' => 'Alumno creado exitosamente',
+                'code' => 200,
+                'data' => 'Alumno creado exitosamente',
                 'alumno' => $alumno
-            ], 201);
+            ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => 'Alumno no creado',
@@ -72,7 +73,8 @@ class AlumnosController extends Controller
             $alumno->update($validatedData);
 
             return response()->json([
-                'message' => 'Alumno actualizado exitosamente',
+                'code' => 200,
+                'data' => 'Alumno actualizado exitosamente',
                 'alumno' => $alumno
             ], 200);
 
@@ -101,7 +103,8 @@ class AlumnosController extends Controller
             $alumno->delete();
 
             return response()->json([
-                'message' => 'Alumno eliminado exitosamente',
+                'code' => 200,
+                'data' => 'Alumno eliminado exitosamente',
             ], 200);
 
         } 
