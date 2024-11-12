@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AlumnosController;
+use App\Http\Controllers\AsignacionesController;
+use App\Http\Controllers\AsistenciasController;
 use App\Http\Controllers\DocentesController;
 use App\Http\Controllers\EncargadoController;
 use App\Http\Controllers\GradosController;
@@ -57,6 +59,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //Rutas de grados
     Route::prefix('/grados')->group(function () {
 
+        Route::get('/select', [GradosController::class, 'select']);
         Route::get('/get-grados', [GradosController::class, 'getGrados']);
 
     });
@@ -77,17 +80,17 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
      //Rutas de trimestres 
-     Route::prefix('/trimestres')->group(function () {
+    Route::prefix('/trimestres')->group(function () {
 
         Route::get('/get-trimestres', [TrimestresController::class, 'getTrimestres']);
     });
-    //Rutas de usuarios al loguearse 
-    Route::prefix('/materias')->group(function () {
 
-        Route::get('/get-materias', [MateriasController::class, 'getMaterias']);
+    Route::prefix('/aginaciones')->group(function () {
+
+        Route::post('/store', [AsignacionesController::class, 'store']);
+        Route::get('find/{id_grado}/{id_materia}', [AsignacionesController::class, 'find']);
+        Route::put('update/{id_asignacion}', [AsignacionesController::class, 'update']);
     });
-
-
 });
 
 //Rutas de usuarios sin loguearse 

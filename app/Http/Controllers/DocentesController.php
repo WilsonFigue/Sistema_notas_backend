@@ -36,6 +36,9 @@ class DocentesController extends Controller
             $docentes = Docentes::select(
                 'docentes.id_docente',
                 'users.name_user',
+                'docentes.nombre_docente',
+                'docentes.apellido_docente',
+
             )
             ->join('users', 'docentes.id_user', '=', 'users.id_user')
             ->get();
