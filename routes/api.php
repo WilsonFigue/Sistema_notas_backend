@@ -7,6 +7,7 @@ use App\Http\Controllers\DocentesController;
 use App\Http\Controllers\EncargadoController;
 use App\Http\Controllers\GradosController;
 use App\Http\Controllers\MateriasController;
+use App\Http\Controllers\NotasController;
 use App\Http\Controllers\TrimestresController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
@@ -17,10 +18,8 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
+
 Route::middleware('auth:sanctum')->group(function () {
-
-
-
     //Rutas de alumnos
     Route::prefix('/alumnos')->group(function () {
 
@@ -29,6 +28,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/update/{id}', [AlumnosController::class, 'update']);
         Route::delete('/delete/{id}', [AlumnosController::class, 'delete']);
         Route::get('/find/{id}', [AlumnosController::class, 'find']);
+        Route::get('/select-alumnos/{id_docente}', [AlumnosController::class, 'selectAlumnosGrados']);
         
     });
 
@@ -77,6 +77,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('/materias')->group(function () {
 
         Route::get('/get-materias', [MateriasController::class, 'getMaterias']);
+        Route::get('/select-materias/{id_docente}/{id_grado}', [MateriasController::class, 'selectMateriasDocente']);
     });
 
      //Rutas de trimestres 
@@ -88,11 +89,17 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('/aginaciones')->group(function () {
 
         Route::post('/store', [AsignacionesController::class, 'store']);
-        Route::get('find/{id_grado}/{id_materia}', [AsignacionesController::class, 'find']);
-        Route::put('update/{id_asignacion}', [AsignacionesController::class, 'update']);
+        Route::get('/find/{id_grado}/{id_materia}', [AsignacionesController::class, 'find']);
+        Route::put('/update/{id_asignacion}', [AsignacionesController::class, 'update']);
+    });
+
+    Route::prefix('/notas')->group(function () {
+
+        Route::get('/find-model/{id_alumno}/{id_asignacion}/{id_trimestre}', [NotasController::class, 'findModel']);
+        
+        Route::post('/update-create', [NotasController::class, 'UpdateOrCreate']);
     });
 });
-
 //Rutas de usuarios sin loguearse 
 Route::prefix('/usuario')->group(function () {
 

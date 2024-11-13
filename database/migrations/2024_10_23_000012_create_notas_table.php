@@ -9,9 +9,11 @@ class CreateNotasTable extends Migration
     public function up()
     {
         Schema::create('notas', function (Blueprint $table) {
-            $table->bigIncrements('id_nota'); 
-            $table->decimal('nota', 5, 2);
-            $table->string('observaciones_not', 225);
+            $table->bigIncrements('id_nota');
+            $table->decimal('nota_1', 5, 2)->nullable(); 
+            $table->decimal('nota_2', 5, 2)->nullable(); 
+            $table->decimal('nota_3', 5, 2)->nullable(); 
+            $table->string('observaciones_not', 225)->nullable(); 
             $table->unsignedBigInteger('id_alumno'); 
             $table->unsignedBigInteger('id_asignacion')->nullable();
             $table->unsignedBigInteger('id_trimestre')->nullable();
