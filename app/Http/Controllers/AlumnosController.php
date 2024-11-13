@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Alumnos;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AlumnosController extends Controller
 {
@@ -29,6 +30,55 @@ class AlumnosController extends Controller
             return response()->json($th->getMessage(), 500);
         }
     }
+
+    public function selectAlumnosGrados($id_docente)
+    {
+        try {
+            $grados = DB::table('asignaciones') 
+                        ->select('id_grado')
+                        ->where('id_docente', $id_docente)
+                        ->distinct()
+                        ->get();
+    
+            if ($grados->isEmpty()) {
+                return response()->json(['data' => 'No hay asignaciones para este docente'], 404);
+            }
+
+            $ids_grados = $grados->pluck('id_grado')->toArray();
+
+            $alumnos = Alumnos::select(
+                'alumnos.id_alumno',
+                'alumnos.nombre_alumno',
+                'alumnos.apellido_alumno',
+                'alumnos.genero_alumno',
+                'alumnos.foto_alumnos',
+                'alumnos.estado_alumno',
+                'alumnos.observaciones_alumn',
+                'alumnos.fecha_ingreso',
+                'grados.id_grado',
+                'grados.nombre_grado'
+            )
+            ->join('grados', 'alumnos.id_grado', '=', 'grados.id_grado')
+            ->whereIn('alumnos.id_grado', $ids_grados) 
+            ->get();
+    
+
+            if ($alumnos->isEmpty()) {
+                return response()->json(['data' => 'No hay alumnos en esos grados'], 404);
+            }
+    
+            return response()->json([
+                'code' => 200,
+                'data' => $alumnos
+            ], 200);
+    
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 500);
+        }
+    }
+    
+
+
 
     public function store(Request $request)
     {

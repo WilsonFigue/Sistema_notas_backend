@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Docentes;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -110,44 +111,61 @@ class UsersController extends Controller
     }
 
     public function login(Request $request)
+{
+    try 
     {
-        try 
-        {
-            $validacion = Validator::make($request->all(), [
-                'email_user' => 'required',
-                'password' => 'required'
-            ]);
+        $validacion = Validator::make($request->all(), [
+            'email_user' => 'required',
+            'password' => 'required'
+        ]);
 
-            if ($validacion->fails()) 
+        if ($validacion->fails()) 
+        {
+            return response()->json([
+                'code' => 400,
+                'data' => $validacion->messages()
+            ], 400);
+            
+        } else 
+        {
+            if (Auth::attempt(['email_user' => $request->email_user, 'password' => $request->password]))
             {
-                return response()->json([
-                    'code' => 400,
-                    'data' => $validacion->messages()
-                ], 400);
+                $usuario = User::where('email_user', $request->email_user)->first();
                 
+                // Verificamos si el rol del usuario es "docente"
+                if ($usuario->rol === 'docente') 
+                {
+                    // Capturamos el id del docente desde la tabla `docentes`
+                    $docente = Docentes::where('id_user', $usuario->id_user)->first();
+
+                    if ($docente) {
+                        $id_docente = $docente->id_docente; // Capturamos el id_docente
+                    } 
+                }
+
+                return response()->json([
+                    'code' => 200,
+                    'data' => [
+                        'id_user' => $usuario->id_user,
+                        'name_user' => $usuario->name_user,
+                        'rol' => $usuario->rol,
+                        'id_docente' => $id_docente ?? null
+                    ],
+                    'token' => $usuario->createToken('api-key')->plainTextToken
+                ], 200);
             } else 
             {
-                if (Auth::attempt(['email_user' => $request->email_user, 'password' => $request->password]))
-                {
-                    $usuario = User::where('email_user', $request->email_user)->first();
-                    
-                    return response()->json([
-                        'code' => 200,
-                        'data' => $usuario,
-                        'token' => $usuario->createToken('api-key')->plainTextToken
-                    ], 200);
-                } else 
-                {
-                    return response()->json([
-                        'code' => 401,
-                        'data' => 'Usuario no autorizado',
-                    ], 401);
-                }
+                return response()->json([
+                    'code' => 401,
+                    'data' => 'Usuario no autorizado',
+                ], 401);
             }
-        } catch (\Throwable $th) {
-            return response()->json($th->getMessage(), 500);
         }
+    } catch (\Throwable $th) {
+        return response()->json($th->getMessage(), 500);
     }
+}
+
 
     public function updatePassword(Request $request, $id_user)
     {
