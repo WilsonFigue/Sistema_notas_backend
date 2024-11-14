@@ -89,6 +89,7 @@ class EncargadoController extends Controller
             $encargado->update($validatedData);
 
             return response()->json([
+                'code' => 200,
                 'message' => 'Encargado actualizado exitosamente',
                 'encargado' => $encargado
             ], 200);
@@ -118,6 +119,7 @@ class EncargadoController extends Controller
             $encargado->delete();
 
             return response()->json([
+                'code' => 200,
                 'message' => 'Encargado eliminado exitosamente',
             ], 200);
 
