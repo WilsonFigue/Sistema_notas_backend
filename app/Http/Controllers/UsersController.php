@@ -18,6 +18,7 @@ class UsersController extends Controller
         {
             $users = User::select(
                     'users.id_user',
+                    'users.email_user',
                     'users.name_user'
                 )
                 ->leftJoin('docentes', 'users.id_user', '=', 'docentes.id_user')  

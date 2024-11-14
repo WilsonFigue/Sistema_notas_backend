@@ -76,7 +76,8 @@ class DocentesController extends Controller
             $docente = Docentes::create($validatedData);
 
             return response()->json([
-                'message' => 'Docentes creado exitosamente',
+                'code' => 200,
+                'message' => 'Docente creado exitosamente',
                 'docente' => $docente
             ], 201);
         } catch (\Throwable $th) {
@@ -115,6 +116,7 @@ class DocentesController extends Controller
             $docente->update($validatedData);
 
             return response()->json([
+                'code' => 200,
                 'message' => 'Docente actualizado exitosamente',
                 'docente' => $docente
             ], 200);
@@ -136,13 +138,14 @@ class DocentesController extends Controller
 
             if (!$docente) {
                 return response()->json([
-                    'message' => 'Alumno no encontrado',
+                    'message' => 'Docente no encontrado',
                 ], 404);
             }
 
             $docente->delete();
 
             return response()->json([
+                'code' => 200,
                 'message' => 'Docente eliminado exitosamente',
             ], 200);
 
@@ -205,6 +208,7 @@ class DocentesController extends Controller
                 'docentes.telefono_docente',
                 'docentes.direccion_docente',
                 'docentes.observaciones_docen',
+                'users.id_user',
                 'users.name_user',
                 'users.email_user'
             )

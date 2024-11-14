@@ -19,7 +19,6 @@ Route::get('/user', function (Request $request) {
 
 
 
-Route::middleware('auth:sanctum')->group(function () {
     //Rutas de alumnos
     Route::prefix('/alumnos')->group(function () {
 
@@ -99,7 +98,7 @@ Route::middleware('auth:sanctum')->group(function () {
         
         Route::post('/update-create', [NotasController::class, 'UpdateOrCreate']);
     });
-});
+
 //Rutas de usuarios sin loguearse 
 Route::prefix('/usuario')->group(function () {
 
