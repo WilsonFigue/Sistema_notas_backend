@@ -30,6 +30,38 @@ class AlumnosController extends Controller
             return response()->json($th->getMessage(), 500);
         }
     }
+    public function selectAlumnosAsistencia($id_grado)
+    {
+        try {
+            
+            $alumnos = Alumnos::select(
+                'alumnos.id_alumno',
+                'alumnos.nombre_alumno',
+                'alumnos.apellido_alumno',
+                'alumnos.genero_alumno',
+                'alumnos.foto_alumnos',
+                'alumnos.estado_alumno',
+                'alumnos.observaciones_alumn',
+                'grados.id_grado',
+                'grados.nombre_grado'
+            )
+            ->join('grados', 'alumnos.id_grado', '=', 'grados.id_grado')
+            ->where('alumnos.id_grado', $id_grado) 
+            ->get();
+
+            if ($alumnos->isEmpty()) {
+                return response()->json(['data' => 'No hay alumnos en esos grados'], 404);
+            }
+    
+            return response()->json([
+                'code' => 200,
+                'data' => $alumnos
+            ], 200);
+    
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 500);
+        }
+    }
 
     public function selectAlumnosGrados($id_docente)
     {

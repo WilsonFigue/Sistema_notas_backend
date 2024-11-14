@@ -19,6 +19,7 @@ Route::get('/user', function (Request $request) {
 
 
 
+Route::middleware('auth:sanctum')->group(function () {
     //Rutas de alumnos
     Route::prefix('/alumnos')->group(function () {
 
@@ -28,6 +29,7 @@ Route::get('/user', function (Request $request) {
         Route::delete('/delete/{id}', [AlumnosController::class, 'delete']);
         Route::get('/find/{id}', [AlumnosController::class, 'find']);
         Route::get('/select-alumnos/{id_docente}', [AlumnosController::class, 'selectAlumnosGrados']);
+        Route::get('/select-asistencia/{id_grado}', [AlumnosController::class, 'selectAlumnosAsistencia']);
         
     });
 
@@ -60,6 +62,7 @@ Route::get('/user', function (Request $request) {
 
         Route::get('/select', [GradosController::class, 'select']);
         Route::get('/get-grados', [GradosController::class, 'getGrados']);
+        Route::get('/select-grados/{id_docente}', [GradosController::class, 'selectGradosDocente']);
 
     });
 
@@ -98,7 +101,7 @@ Route::get('/user', function (Request $request) {
         
         Route::post('/update-create', [NotasController::class, 'UpdateOrCreate']);
     });
-
+});
 //Rutas de usuarios sin loguearse 
 Route::prefix('/usuario')->group(function () {
 
